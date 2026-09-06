@@ -248,7 +248,7 @@ export default function Home() {
     const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
     const link = document.createElement("a");
     link.href = url;
-    link.download = "flowforge-opportunity-pipeline.csv";
+    link.download = "headroom-growthos-opportunity-pipeline.csv";
     link.click();
     URL.revokeObjectURL(url);
   }
@@ -265,7 +265,7 @@ export default function Home() {
       <aside className="sidebar">
         <button className="brand brand-button" onClick={() => switchView("command")} aria-label="Open command dashboard">
           <div className="brand-mark" aria-hidden="true"><span /><span /></div>
-          <div><strong>FlowForge</strong><small>Expansion Hub</small></div>
+          <div><strong>Headroom</strong><small>GrowthOS</small></div>
         </button>
 
         <nav aria-label="Primary navigation" className="primary-nav">
@@ -279,7 +279,7 @@ export default function Home() {
 
         <div className="sidebar-note">
           <CircleDot aria-hidden="true" />
-          <div><strong>Independent platform</strong><span>Commercial intelligence for mechanical piping growth.</span></div>
+          <div><strong>Victaulic Growth Workspace</strong><span>Powered by Headroom GrowthOS.</span></div>
         </div>
       </aside>
 
@@ -333,7 +333,7 @@ export default function Home() {
         {activeView === "partners" && <PartnerView />}
 
         <footer className="global-footer">
-          <p>FlowForge is independently owned and is not affiliated with or endorsed by Victaulic Company. Opportunity and partner data shown is illustrative. Product selection requires confirmation against current manufacturer literature and project engineering requirements.</p>
+          <p>Headroom GrowthOS is independently owned. This Victaulic Growth Workspace is not affiliated with or endorsed by Victaulic Company. Opportunity and partner data shown is illustrative. Product selection requires confirmation against current manufacturer literature and project engineering requirements.</p>
         </footer>
       </section>
 

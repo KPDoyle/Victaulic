@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FlowForge | Expansion Hub",
-  description: "Independent commercial intelligence for mechanical piping growth.",
+  title: "Victaulic Growth Workspace | Headroom GrowthOS",
+  description: "A Headroom GrowthOS workspace for identifying, qualifying and converting market expansion opportunities.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

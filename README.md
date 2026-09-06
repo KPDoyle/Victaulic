@@ -1,6 +1,6 @@
-# FlowForge Expansion Hub
+# Headroom GrowthOS — Victaulic Growth Workspace
 
-FlowForge is an independently owned commercial-intelligence application for developing mechanical piping and fire-protection markets. It turns early project signals into qualified opportunities, value cases and coordinated specification-to-channel plans.
+Headroom GrowthOS is an independently owned, sector-neutral market-expansion platform. This repository contains its Victaulic Growth Workspace: a customer-specific implementation for developing mechanical piping and fire-protection opportunities. It turns early project signals into qualified opportunities, value cases and coordinated specification-to-channel plans.
 
 ## Core capabilities
 
@@ -13,11 +13,15 @@ FlowForge is an independently owned commercial-intelligence application for deve
 - Printable opportunity briefs
 - Responsive desktop, tablet and mobile interface
 
-## Positioning
+## Platform structure
 
-FlowForge is designed as an upstream market-development layer. It can complement a manufacturer's existing product selection, BIM/VDC, technical-support and distribution systems while remaining a separately owned platform.
+- **Master platform:** Headroom GrowthOS
+- **Customer implementation:** Victaulic Growth Workspace
+- **Purpose:** Identify, qualify and convert new sources of profitable growth
 
-FlowForge is not affiliated with or endorsed by Victaulic Company. The opportunity, partner and project data included in this repository is illustrative. Product selection and project assumptions must be checked against current manufacturer literature and engineering requirements.
+Headroom GrowthOS is designed as an upstream market-development layer. It can complement a company's existing CRM, product-selection, BIM/VDC, technical-support and distribution systems while remaining a separately owned platform.
+
+Headroom GrowthOS and this workspace are not affiliated with or endorsed by Victaulic Company. The opportunity, partner and project data included in this repository is illustrative. Product selection and project assumptions must be checked against current manufacturer literature and engineering requirements.
 
 ## Run locally
 
