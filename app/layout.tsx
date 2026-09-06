@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Victaulic Growth Workspace | Headroom GrowthOS",
-  description: "An executive growth intelligence workspace for identifying, qualifying and converting strategic market opportunities.",
+  title: "Victaulic Customer & BIM Workspace | Headroom GrowthOS",
+  description: "A connected-construction platform for turning project intelligence, customer relationships and BIM engagement into specification and delivery opportunities.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
