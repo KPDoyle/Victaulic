@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Victaulic Growth Workspace | Headroom GrowthOS",
-  description: "A Headroom GrowthOS workspace for identifying, qualifying and converting market expansion opportunities.",
+  description: "An executive growth intelligence workspace for identifying, qualifying and converting strategic market opportunities.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

@@ -64,11 +64,11 @@ type Opportunity = {
 };
 
 const nav = [
-  { id: "command" as const, label: "Command", icon: Gauge },
-  { id: "opportunities" as const, label: "Opportunities", icon: Target },
-  { id: "planner" as const, label: "Market planner", icon: Map },
-  { id: "value" as const, label: "Value builder", icon: TrendingUp },
-  { id: "partners" as const, label: "Partner network", icon: Network },
+  { id: "command" as const, label: "Executive overview", icon: Gauge },
+  { id: "opportunities" as const, label: "Growth pipeline", icon: Target },
+  { id: "planner" as const, label: "Market intelligence", icon: Map },
+  { id: "value" as const, label: "Commercial case", icon: TrendingUp },
+  { id: "partners" as const, label: "Partner coverage", icon: Network },
 ];
 
 const initialOpportunities: Opportunity[] = [
@@ -161,9 +161,9 @@ const regionModels = {
 };
 
 const partners = [
-  { name: "Riyadh technical distributor search", region: "Saudi Arabia", capability: "Distribution", readiness: 48, gap: "Technical stockholding", status: "Shortlist" },
-  { name: "Gulf fire installer network", region: "Saudi Arabia", capability: "Installation", readiness: 57, gap: "Product training", status: "Build" },
-  { name: "Nordic VDC delivery cell", region: "Nordics", capability: "VDC", readiness: 64, gap: "Local modelling capacity", status: "Gap" },
+  { name: "Riyadh technical distributor search", region: "Saudi Arabia", capability: "Distribution", readiness: 48, gap: "Technical stockholding", status: "Shortlisting" },
+  { name: "Gulf fire installer network", region: "Saudi Arabia", capability: "Installation", readiness: 57, gap: "Product training", status: "In development" },
+  { name: "Nordic VDC delivery cell", region: "Nordics", capability: "VDC", readiness: 64, gap: "Local modelling capacity", status: "Capability gap" },
   { name: "UK water framework channel", region: "United Kingdom", capability: "Distribution", readiness: 88, gap: "Executive sponsor", status: "Validated" },
   { name: "Central Europe industrial integrator", region: "Central Europe", capability: "Specification", readiness: 72, gap: "Factory references", status: "Due diligence" },
   { name: "Australian mining coverage", region: "Australia", capability: "Installation", readiness: 69, gap: "Remote field support", status: "Due diligence" },
@@ -178,11 +178,11 @@ const marketMatrix = [
 ];
 
 const titles: Record<ViewId, { eyebrow: string; title: string }> = {
-  command: { eyebrow: "Portfolio / Q3 2026", title: "Expansion command" },
-  opportunities: { eyebrow: "Commercial pipeline", title: "Opportunity radar" },
-  planner: { eyebrow: "Territory intelligence", title: "Market planner" },
-  value: { eyebrow: "Project economics", title: "Value builder" },
-  partners: { eyebrow: "Route to market", title: "Partner network" },
+  command: { eyebrow: "Global growth portfolio · Q3 2026", title: "Executive overview" },
+  opportunities: { eyebrow: "Opportunity qualification", title: "Growth pipeline" },
+  planner: { eyebrow: "Territory and sector intelligence", title: "Market prioritisation" },
+  value: { eyebrow: "Project economics", title: "Commercial value case" },
+  partners: { eyebrow: "Route-to-market capability", title: "Partner coverage" },
 };
 
 function MarketIcon({ market }: { market: string }) {
@@ -223,15 +223,15 @@ export default function Home() {
     event.preventDefault();
     const next: Opportunity = {
       id: Date.now(),
-      name: newOpportunity.name.trim() || "New expansion opportunity",
+      name: newOpportunity.name.trim() || "New growth opportunity",
       market: newOpportunity.market,
       region: newOpportunity.region.trim() || "Territory to confirm",
       stage: newOpportunity.stage,
       value: Number(newOpportunity.value) || 1.5,
       probability: 45,
       due: "To be scheduled",
-      signal: "New opportunity captured. Complete the evidence, decision-maker and route-to-market assessment.",
-      systemFit: ["Product fit to validate", "Applications engineering review"],
+      signal: "New opportunity recorded. Complete the supporting evidence, stakeholder and route-to-market assessment.",
+      systemFit: ["Solution applicability to validate", "Applications engineering review"],
       stakeholders: ["Project owner", "Specifier", "Contractor", "Distribution partner"],
     };
     setOpportunities((current) => [next, ...current]);
@@ -242,7 +242,7 @@ export default function Home() {
   }
 
   function exportPipeline() {
-    const headings = ["Opportunity", "Market", "Region", "Stage", "Value GBP m", "Fit score", "Decision date"];
+    const headings = ["Opportunity", "Market", "Region", "Stage", "Value GBP m", "Qualification score", "Decision date"];
     const rows = opportunities.map((item) => [item.name, item.market, item.region, item.stage, item.value, item.probability, item.due]);
     const csv = [headings, ...rows].map((row) => row.map((value) => '"' + String(value).replaceAll('"', '""') + '"').join(",")).join("\n");
     const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
@@ -263,13 +263,13 @@ export default function Home() {
   return (
     <main className="app-shell">
       <aside className="sidebar">
-        <button className="brand brand-button" onClick={() => switchView("command")} aria-label="Open command dashboard">
+        <button className="brand brand-button" onClick={() => switchView("command")} aria-label="Open executive overview">
           <div className="brand-mark" aria-hidden="true"><span /><span /></div>
-          <div><strong>Headroom</strong><small>GrowthOS</small></div>
+          <div><strong>Headroom</strong><small>GrowthOS · Intelligence</small></div>
         </button>
 
         <nav aria-label="Primary navigation" className="primary-nav">
-          <p>Workspace</p>
+          <p>Portfolio workspace</p>
           {nav.map((item) => (
             <button className={activeView === item.id ? "active" : ""} key={item.id} onClick={() => switchView(item.id)} aria-current={activeView === item.id ? "page" : undefined}>
               <item.icon aria-hidden="true" /><span>{item.label}</span>
@@ -279,19 +279,20 @@ export default function Home() {
 
         <div className="sidebar-note">
           <CircleDot aria-hidden="true" />
-          <div><strong>Victaulic Growth Workspace</strong><span>Powered by Headroom GrowthOS.</span></div>
+          <div><strong>Victaulic Growth Workspace</strong><span>Independent strategic planning environment</span></div>
         </div>
       </aside>
 
       <section className="workspace">
         <header className="topbar">
-          <div><p>{titles[activeView].eyebrow}</p><h1>{titles[activeView].title}</h1></div>
+          <div className="page-title"><p>{titles[activeView].eyebrow}</p><h1>{titles[activeView].title}</h1></div>
           <div className="top-actions">
+            <div className="data-status"><span /><div><small>Portfolio status</small><strong>Refreshed 06 Sep 2026</strong></div></div>
             <label className="search-box">
               <Search aria-hidden="true" />
               <span className="sr-only">Search opportunities</span>
               <input
-                placeholder="Search projects, markets..."
+                placeholder="Search opportunities and markets"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 onKeyDown={(event) => {
@@ -300,7 +301,7 @@ export default function Home() {
               />
             </label>
             <Button className="primary-action" onClick={() => setDialogOpen(true)}>
-              <Plus aria-hidden="true" /> New opportunity
+              <Plus aria-hidden="true" /> Add opportunity
             </Button>
           </div>
         </header>
@@ -333,7 +334,7 @@ export default function Home() {
         {activeView === "partners" && <PartnerView />}
 
         <footer className="global-footer">
-          <p>Headroom GrowthOS is independently owned. This Victaulic Growth Workspace is not affiliated with or endorsed by Victaulic Company. Opportunity and partner data shown is illustrative. Product selection requires confirmation against current manufacturer literature and project engineering requirements.</p>
+          <p>Headroom GrowthOS is independently owned and is not affiliated with or endorsed by Victaulic Company. All portfolio, opportunity and partner data in this demonstration is illustrative. Product applicability must be validated against current manufacturer documentation and project-specific engineering requirements.</p>
         </footer>
       </section>
 
@@ -341,8 +342,8 @@ export default function Home() {
         <DialogContent className="opportunity-dialog">
           <form onSubmit={addOpportunity}>
             <DialogHeader>
-              <DialogTitle>Capture an opportunity</DialogTitle>
-              <DialogDescription>Add the minimum signal now. The qualification workflow can be completed from Opportunity Radar.</DialogDescription>
+              <DialogTitle>Add a growth opportunity</DialogTitle>
+              <DialogDescription>Record the core commercial signal. Complete evidence, stakeholder and route-to-market validation in the Growth pipeline workspace.</DialogDescription>
             </DialogHeader>
             <div className="dialog-form">
               <label className="field full"><span>Opportunity name</span><input required value={newOpportunity.name} onChange={(e) => setNewOpportunity({ ...newOpportunity, name: e.target.value })} placeholder="e.g. Nordic hospital programme" /></label>
@@ -367,7 +368,7 @@ export default function Home() {
             </div>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
-              <Button type="submit">Add to pipeline</Button>
+              <Button type="submit">Add opportunity</Button>
             </DialogFooter>
           </form>
         </DialogContent>
@@ -383,25 +384,46 @@ function CommandView({ opportunities, pipelineValue, onOpenOpportunity, onViewAl
   onViewAll: () => void;
   onOpenPartners: () => void;
 }) {
+  const weightedValue = opportunities.reduce((total, item) => total + item.value * item.probability / 100, 0);
+
   return (
     <div className="content">
-      <section className="metric-grid" aria-label="Pipeline summary">
-        <article><span className="metric-icon coral"><Target /></span><p>Qualified pipeline</p><strong>{formatMoney(pipelineValue)}</strong><small><b>+18%</b> this quarter</small></article>
-        <article><span className="metric-icon blue"><Layers3 /></span><p>Active opportunities</p><strong>{opportunities.length}</strong><small>3 at specification stage</small></article>
-        <article><span className="metric-icon gold"><UsersRound /></span><p>Partner readiness</p><strong>76%</strong><small>5 territory gaps open</small></article>
-        <article><span className="metric-icon green"><CalendarDays /></span><p>Decisions due</p><strong>7</strong><small>Next 30 days</small></article>
+      <section className="portfolio-hero" aria-label="Portfolio outlook">
+        <article className="outlook-card">
+          <div className="outlook-topline"><p className="eyebrow">Portfolio outlook</p><span className="live-indicator"><i /> Illustrative model</span></div>
+          <div className="outlook-copy">
+            <span>Qualified growth portfolio</span>
+            <strong>{formatMoney(pipelineValue)}</strong>
+            <p>Specification-led opportunities across six programmes, with the strongest near-term conviction in mission-critical, water and healthcare markets.</p>
+          </div>
+          <div className="outlook-footer">
+            <div><small>Conversion-weighted value</small><b>{formatMoney(weightedValue)}</b></div>
+            <div><small>Quarterly movement</small><b className="positive">+18.0%</b></div>
+            <div><small>Decision horizon</small><b>30 days</b></div>
+            <div className="signal-bars" aria-label="Portfolio signal strengthening over eight periods">
+              {[32, 39, 35, 48, 54, 63, 69, 78].map((height, index) => <i key={index} style={{ height: height + "%" }} />)}
+            </div>
+          </div>
+        </article>
+
+        <div className="metric-grid">
+          <article><span className="metric-icon blue"><Layers3 /></span><p>Active programmes</p><strong>{opportunities.length}</strong><small>3 at specification stage</small></article>
+          <article><span className="metric-icon gold"><UsersRound /></span><p>Delivery readiness</p><strong>76%</strong><small>Five dependencies to resolve</small></article>
+          <article><span className="metric-icon green"><CalendarDays /></span><p>Decision points</p><strong>7</strong><small>Due within 30 days</small></article>
+          <article><span className="metric-icon coral"><ShieldCheck /></span><p>Portfolio confidence</p><strong>68</strong><small>Weighted qualification score</small></article>
+        </div>
       </section>
 
       <section className="dashboard-grid">
         <article className="panel pipeline-panel">
-          <div className="panel-heading"><div><p className="eyebrow">Pipeline</p><h2>Priority opportunities</h2></div><button className="text-action" onClick={onViewAll}>View all <ArrowUpRight /></button></div>
+          <div className="panel-heading"><div><p className="eyebrow">Opportunity portfolio</p><h2>Priority growth programmes</h2></div><button className="text-action" onClick={onViewAll}>View portfolio <ArrowUpRight /></button></div>
           <div className="opportunity-list">
             {opportunities.slice(0, 4).map((item) => (
               <button className="opportunity" key={item.id} onClick={() => onOpenOpportunity(item.id)}>
                 <span className="opportunity-icon"><MarketIcon market={item.market} /></span>
                 <span className="opportunity-main"><strong>{item.name}</strong><small>{item.market} · {item.region}</small></span>
                 <span className="stage">{item.stage}</span>
-                <span className="probability"><span><i style={{ width: item.probability + "%" }} /></span><small>{item.probability}% fit</small></span>
+                <span className="probability"><span><i style={{ width: item.probability + "%" }} /></span><small>{item.probability}% qualified</small></span>
                 <b>{formatMoney(item.value)}</b><ChevronRight className="chevron" />
               </button>
             ))}
@@ -409,19 +431,19 @@ function CommandView({ opportunities, pipelineValue, onOpenOpportunity, onViewAl
         </article>
 
         <article className="panel action-panel">
-          <div className="panel-heading"><div><p className="eyebrow">Focus</p><h2>Next best actions</h2></div><span className="count-badge">4</span></div>
+          <div className="panel-heading"><div><p className="eyebrow">Execution agenda</p><h2>Recommended priorities</h2></div><span className="count-badge">4</span></div>
           <ol className="action-list">
-            <li><span className="priority high">Now</span><div><strong>Confirm cooling specification route</strong><small>Nordic data-centre programme · due today</small></div></li>
-            <li><span className="priority">2d</span><div><strong>Close installer capability gap</strong><small>Saudi Arabia · fire protection</small></div></li>
-            <li><span className="priority">4d</span><div><strong>Issue schedule-value brief</strong><small>UK water resilience framework</small></div></li>
-            <li><span className="priority">6d</span><div><strong>Map BIM decision-makers</strong><small>European gigafactory cluster</small></div></li>
+            <li><span className="priority high">Now</span><div><strong>Confirm the cooling specification route</strong><small>Nordic data-centre programme · decision due today</small></div></li>
+            <li><span className="priority">2d</span><div><strong>Resolve installer capability requirements</strong><small>Saudi Arabia · fire protection workstream</small></div></li>
+            <li><span className="priority">4d</span><div><strong>Issue the schedule-value evidence brief</strong><small>UK water resilience framework</small></div></li>
+            <li><span className="priority">6d</span><div><strong>Validate BIM decision authority</strong><small>European gigafactory cluster</small></div></li>
           </ol>
         </article>
       </section>
 
       <section className="dashboard-grid lower-grid">
         <article className="panel market-panel">
-          <div className="panel-heading"><div><p className="eyebrow">Market signal</p><h2>Expansion heatmap</h2></div><span className="updated">Updated 05 Sep</span></div>
+          <div className="panel-heading"><div><p className="eyebrow">Market intelligence</p><h2>Sector attractiveness</h2></div><span className="updated">Assessment · 05 Sep</span></div>
           <div className="market-bars">
             {[["Mission critical", 91, "£10.6m"], ["Water infrastructure", 84, "£8.2m"], ["Healthcare", 76, "£5.1m"], ["Advanced manufacturing", 69, "£4.7m"], ["Fire protection", 62, "£3.2m"]].map(([name, score, value]) => (
               <div className="market-row" key={String(name)}><span>{name}</span><div><i style={{ width: score + "%" }} /></div><b>{score}</b><small>{value}</small></div>
@@ -430,9 +452,9 @@ function CommandView({ opportunities, pipelineValue, onOpenOpportunity, onViewAl
         </article>
 
         <article className="panel coverage-panel">
-          <div className="panel-heading"><div><p className="eyebrow">Channel</p><h2>Coverage gaps</h2></div><button className="text-action" onClick={onOpenPartners}>Review <ArrowUpRight /></button></div>
-          <div className="gap-stat"><span><Flame /></span><div><strong>5 gaps constrain £9.4m</strong><small>Prioritise technical distribution and trained installer capacity.</small></div></div>
-          <div className="gap-tags"><span>Saudi · Fire <b>High</b></span><span>Nordics · VDC <b>High</b></span><span>UK · Water <b>Medium</b></span></div>
+          <div className="panel-heading"><div><p className="eyebrow">Route to market</p><h2>Execution dependencies</h2></div><button className="text-action" onClick={onOpenPartners}>Review coverage <ArrowUpRight /></button></div>
+          <div className="gap-stat"><span><Flame /></span><div><strong>Five dependencies affect £9.4m</strong><small>Technical distribution and trained installer capacity are the immediate priorities.</small></div></div>
+          <div className="gap-tags"><span>Saudi Arabia · Fire <b>Critical</b></span><span>Nordics · VDC <b>Critical</b></span><span>United Kingdom · Water <b>Elevated</b></span></div>
         </article>
       </section>
     </div>
@@ -454,8 +476,8 @@ function OpportunitiesView({ opportunities, selected, query, setQuery, marketFil
   return (
     <div className="content module-content">
       <section className="module-intro">
-        <div><p>Convert an early project signal into a specification-led campaign, with a named decision route and channel plan.</p></div>
-        <Button variant="outline" onClick={exportPipeline}><Download /> Export pipeline</Button>
+        <div><span className="intro-kicker">From signal to specification</span><p>Qualify emerging project demand, establish the stakeholder route and coordinate the commercial actions required to convert each programme.</p></div>
+        <Button variant="outline" onClick={exportPipeline}><Download /> Export portfolio</Button>
       </section>
       <section className="filters panel">
         <label className="inline-search"><Search /><span className="sr-only">Filter opportunities</span><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search opportunity, region or market" /></label>
@@ -467,12 +489,12 @@ function OpportunitiesView({ opportunities, selected, query, setQuery, marketFil
           <SelectTrigger className="filter-select"><SelectValue /></SelectTrigger>
           <SelectContent>{["All stages", "Project identified", "Solution mapping", "Specifier engagement", "Partner validation", "Commercial case"].map((item) => <SelectItem value={item} key={item}>{item}</SelectItem>)}</SelectContent>
         </Select>
-        <span className="result-count">{opportunities.length} results</span>
+        <span className="result-count">{opportunities.length} opportunities</span>
       </section>
 
       <section className="opportunity-workspace">
         <article className="panel radar-list">
-          <div className="table-header"><span>Opportunity</span><span>Stage</span><span>Fit</span><span>Value</span></div>
+          <div className="table-header"><span>Opportunity</span><span>Qualification stage</span><span>Score</span><span>Value</span></div>
           {opportunities.length ? opportunities.map((item) => (
             <button key={item.id} onClick={() => setSelectedId(item.id)} className={selected.id === item.id ? "radar-row selected" : "radar-row"}>
               <span className="radar-name"><i><MarketIcon market={item.market} /></i><span><strong>{item.name}</strong><small>{item.region} · {item.market}</small></span></span>
@@ -486,12 +508,12 @@ function OpportunitiesView({ opportunities, selected, query, setQuery, marketFil
         </article>
 
         <aside className="panel opportunity-detail">
-          <div className="detail-head"><div><p className="eyebrow">Selected opportunity</p><h2>{selected.name}</h2></div><span className="fit-ring">{selected.probability}<small>/100</small></span></div>
+          <div className="detail-head"><div><p className="eyebrow">Opportunity brief</p><h2>{selected.name}</h2></div><span className="fit-ring" style={{ "--score": selected.probability } as CSSProperties}>{selected.probability}<small>score</small></span></div>
           <p className="detail-signal">{selected.signal}</p>
-          <div className="detail-meta"><span><CalendarDays /> Decision point <b>{selected.due}</b></span><span><BriefcaseBusiness /> Indicative pipeline <b>{formatMoney(selected.value)}</b></span></div>
-          <div className="detail-section"><h3>Solution-fit hypothesis</h3><div className="fit-tags">{selected.systemFit.map((item) => <span key={item}><CheckCircle2 />{item}</span>)}</div></div>
-          <div className="detail-section"><h3>Decision route</h3><ol className="stakeholder-route">{selected.stakeholders.map((item, index) => <li key={item}><span>{index + 1}</span>{item}</li>)}</ol></div>
-          <div className="detail-actions"><Button onClick={() => window.print()}><Printer /> Create opportunity brief</Button><a href="https://www.victaulic.com/product-guide/" target="_blank" rel="noreferrer">Verify product fit <ArrowUpRight /></a></div>
+          <div className="detail-meta"><span><CalendarDays /> Decision milestone <b>{selected.due}</b></span><span><BriefcaseBusiness /> Indicative pipeline value <b>{formatMoney(selected.value)}</b></span></div>
+          <div className="detail-section"><h3>Solution alignment hypothesis</h3><div className="fit-tags">{selected.systemFit.map((item) => <span key={item}><CheckCircle2 />{item}</span>)}</div></div>
+          <div className="detail-section"><h3>Stakeholder pathway</h3><ol className="stakeholder-route">{selected.stakeholders.map((item, index) => <li key={item}><span>{index + 1}</span>{item}</li>)}</ol></div>
+          <div className="detail-actions"><Button onClick={() => window.print()}><Printer /> Generate opportunity brief</Button><a href="https://www.victaulic.com/product-guide/" target="_blank" rel="noreferrer">Validate product applicability <ArrowUpRight /></a></div>
         </aside>
       </section>
     </div>
@@ -519,12 +541,12 @@ function PlannerView() {
 
   return (
     <div className="content module-content">
-      <section className="module-intro"><div><p>Compare market pull with the ability to specify, supply and support. Adjust the assumptions to test an entry strategy.</p></div><Select value={region} onValueChange={(value) => chooseRegion(value as keyof typeof regionModels)}><SelectTrigger className="region-select"><Globe2 /><SelectValue /></SelectTrigger><SelectContent>{Object.keys(regionModels).map((item) => <SelectItem value={item} key={item}>{item}</SelectItem>)}</SelectContent></Select></section>
+      <section className="module-intro"><div><span className="intro-kicker">Evidence-led prioritisation</span><p>Compare addressable project demand with specification access, delivery capability and operating conditions. Adjust the assumptions to evaluate alternative entry strategies.</p></div><Select value={region} onValueChange={(value) => chooseRegion(value as keyof typeof regionModels)}><SelectTrigger className="region-select"><Globe2 /><SelectValue /></SelectTrigger><SelectContent>{Object.keys(regionModels).map((item) => <SelectItem value={item} key={item}>{item}</SelectItem>)}</SelectContent></Select></section>
       <section className="planner-grid">
         <article className="panel scenario-panel">
-          <div className="panel-heading"><div><p className="eyebrow">Scenario</p><h2>{region} entry model</h2></div><span className={score >= 75 ? "score strong" : "score"}>{score}<small>attractiveness</small></span></div>
+          <div className="panel-heading"><div><p className="eyebrow">Market assessment</p><h2>{region} entry scenario</h2></div><span className={score >= 75 ? "score strong" : "score"} style={{ "--score": score } as CSSProperties}>{score}<small>priority score</small></span></div>
           <div className="slider-list">
-            <ModelSlider label="Capital-project activity" value={activity} setValue={setActivity} hint="Volume and timing of addressable projects" />
+            <ModelSlider label="Capital project activity" value={activity} setValue={setActivity} hint="Volume and timing of addressable programmes" />
             <ModelSlider label="Channel readiness" value={channel} setValue={setChannel} hint="Distribution, stock and installer coverage" />
             <ModelSlider label="Specification influence" value={influence} setValue={setInfluence} hint="Access to owners, consultants and EPCs" />
             <ModelSlider label="Operating ease" value={ease} setValue={setEase} hint="Approvals, procurement and serviceability" />
@@ -533,21 +555,21 @@ function PlannerView() {
         </article>
 
         <aside className="panel recommended-play">
-          <p className="eyebrow">Recommended first play</p><h2>{regionModels[region].lead}</h2>
-          <p>Lead with a project-specific schedule and risk case, then secure the specification route before building broader channel coverage.</p>
+          <p className="eyebrow">Recommended entry thesis</p><h2>{regionModels[region].lead}</h2>
+          <p>Lead with project-specific schedule and delivery-risk evidence. Establish the specification pathway before expanding wider channel capacity.</p>
           <div className="play-steps">
-            <span><b>01</b><strong>Find the programme</strong><small>Target named projects entering concept or MEP design.</small></span>
-            <span><b>02</b><strong>Win the specification</strong><small>Build the technical and project-value case with the decision team.</small></span>
-            <span><b>03</b><strong>Ready the channel</strong><small>Align trained installers, stock, logistics and field support.</small></span>
+            <span><b>01</b><strong>Identify the programme</strong><small>Prioritise named projects entering concept or MEP design.</small></span>
+            <span><b>02</b><strong>Establish the specification position</strong><small>Build the technical and commercial evidence with the decision team.</small></span>
+            <span><b>03</b><strong>Mobilise delivery capability</strong><small>Align trained installers, stock, logistics and field support.</small></span>
           </div>
           <div className="reference-links"><a href="https://www.victaulic.com/software" target="_blank" rel="noreferrer">VDC services <ArrowUpRight /></a><a href="https://www.victaulic.com/where-to-buy/" target="_blank" rel="noreferrer">Distributor network <ArrowUpRight /></a></div>
         </aside>
       </section>
 
       <article className="panel matrix-panel">
-        <div className="panel-heading"><div><p className="eyebrow">Portfolio view</p><h2>Market-entry matrix</h2></div><span className="updated">Illustrative model</span></div>
+        <div className="panel-heading"><div><p className="eyebrow">Comparative portfolio</p><h2>Market prioritisation matrix</h2></div><span className="updated">Illustrative planning model</span></div>
         <div className="matrix-table">
-          <div className="matrix-head"><span>Market</span><span>Momentum</span><span>Solution fit</span><span>Typical cycle</span><span>Winning route</span></div>
+          <div className="matrix-head"><span>Market</span><span>Momentum</span><span>Solution alignment</span><span>Typical cycle</span><span>Route to market</span></div>
           {marketMatrix.map((item) => <div className="matrix-row" key={item.market}><strong>{item.market}</strong><span><i style={{ width: item.momentum + "%" }} /><b>{item.momentum}</b></span><span><i style={{ width: item.fit + "%" }} /><b>{item.fit}</b></span><span>{item.cycle}</span><span>{item.route}</span></div>)}
         </div>
       </article>
@@ -579,24 +601,24 @@ function ValueBuilder() {
 
   return (
     <div className="content module-content">
-      <section className="module-intro"><div><p>Build an indicative commercial case for moving from a conventional joining method to a faster mechanical approach.</p></div><Button variant="outline" onClick={() => window.print()}><Printer /> Print value brief</Button></section>
+      <section className="module-intro"><div><span className="intro-kicker">Quantified project outcomes</span><p>Develop an indicative economic case for replacing a conventional joining method with a faster mechanical approach, using transparent project assumptions.</p></div><Button variant="outline" onClick={() => window.print()}><Printer /> Print value case</Button></section>
       <section className="value-grid">
         <article className="panel assumptions-panel">
-          <div className="panel-heading"><div><p className="eyebrow">Inputs</p><h2>Project assumptions</h2></div><span className="updated">Edit every value</span></div>
+          <div className="panel-heading"><div><p className="eyebrow">Model inputs</p><h2>Project assumptions</h2></div><span className="updated">All values are editable</span></div>
           <div className="input-grid">
             <NumberField label="Number of joints" value={joints} setValue={setJoints} suffix="joints" />
             <NumberField label="Crew size" value={crew} setValue={setCrew} suffix="people" />
-            <NumberField label="Conventional time" value={conventional} setValue={setConventional} suffix="min / joint" />
-            <NumberField label="Mechanical time" value={mechanical} setValue={setMechanical} suffix="min / joint" />
-            <NumberField label="Labour cost" value={rate} setValue={setRate} prefix="£" suffix="/ person hr" />
-            <NumberField label="Schedule exposure" value={dayExposure} setValue={setDayExposure} prefix="£" suffix="/ day" />
+            <NumberField label="Conventional installation time" value={conventional} setValue={setConventional} suffix="min / joint" />
+            <NumberField label="Mechanical installation time" value={mechanical} setValue={setMechanical} suffix="min / joint" />
+            <NumberField label="Loaded labour rate" value={rate} setValue={setRate} prefix="£" suffix="/ person hr" />
+            <NumberField label="Daily schedule exposure" value={dayExposure} setValue={setDayExposure} prefix="£" suffix="/ day" />
           </div>
           <div className="critical-slider"><div><strong>Critical-path exposure</strong><span>Percentage of recovered working time that affects the overall project schedule</span></div><b>{criticalPath}%</b><Slider min={0} max={100} step={5} value={[criticalPath]} onValueChange={(values) => setCriticalPath(values[0])} aria-label="Critical-path exposure" /></div>
           <div className="method-note"><ShieldCheck /><p><strong>Use verified project inputs.</strong> This is a commercial screening model—not engineering advice, a quotation or a manufacturer performance claim.</p></div>
         </article>
 
         <aside className="panel value-result">
-          <p className="eyebrow">Indicative opportunity</p><strong className="total-value">£{Math.round(totalValue).toLocaleString("en-GB")}</strong><span className="value-caption">potential project value</span>
+          <p className="eyebrow">Illustrative value opportunity</p><strong className="total-value">£{Math.round(totalValue).toLocaleString("en-GB")}</strong><span className="value-caption">modelled labour and schedule contribution</span>
           <div className="value-breakdown">
             <div><span>Time per joint</span><b>{minutesSaved} min saved</b></div>
             <div><span>Crew working time</span><b>{Math.round(crewHoursSaved)} hrs</b></div>
@@ -604,8 +626,8 @@ function ValueBuilder() {
             <div><span>Direct labour value</span><b>£{Math.round(labourValue).toLocaleString("en-GB")}</b></div>
             <div><span>Schedule value</span><b>£{Math.round(scheduleValue).toLocaleString("en-GB")}</b></div>
           </div>
-          <div className="value-message"><Sparkles /><p>Use this estimate to decide whether the project merits a detailed, manufacturer-supported value engineering review.</p></div>
-          <a className="source-action" href="https://www.victaulic.com/solutions/" target="_blank" rel="noreferrer">Open official solution evidence <ArrowUpRight /></a>
+          <div className="value-message"><Sparkles /><p>Use this screening estimate to determine whether a detailed, manufacturer-supported value-engineering assessment is warranted.</p></div>
+          <a className="source-action" href="https://www.victaulic.com/solutions/" target="_blank" rel="noreferrer">Review manufacturer solution evidence <ArrowUpRight /></a>
         </aside>
       </section>
     </div>
@@ -625,15 +647,15 @@ function PartnerView() {
 
   return (
     <div className="content module-content">
-      <section className="module-intro"><div><p>Expose the channel gaps behind each opportunity and build a territory network around specification, stock, installation and field support.</p></div><span className="readiness-summary"><b>76%</b> portfolio readiness</span></section>
+      <section className="module-intro"><div><span className="intro-kicker">Delivery ecosystem readiness</span><p>Identify the route-to-market dependencies behind each opportunity and coordinate specification, stock, installation and field-support capability by territory.</p></div><span className="readiness-summary"><b>76%</b> portfolio readiness</span></section>
       <section className="partner-controls panel">
         <Select value={region} onValueChange={setRegion}><SelectTrigger className="filter-select"><SelectValue /></SelectTrigger><SelectContent>{["All regions", "Saudi Arabia", "Nordics", "United Kingdom", "Central Europe", "Australia"].map((item) => <SelectItem value={item} key={item}>{item}</SelectItem>)}</SelectContent></Select>
         <Select value={capability} onValueChange={setCapability}><SelectTrigger className="filter-select"><SelectValue /></SelectTrigger><SelectContent>{["All capabilities", "Distribution", "Installation", "VDC", "Specification"].map((item) => <SelectItem value={item} key={item}>{item}</SelectItem>)}</SelectContent></Select>
-        <span>{filtered.length} workstreams</span>
+        <span>{filtered.length} active workstreams</span>
       </section>
       <section className="partner-grid">
         <article className="panel partner-list">
-          <div className="partner-head"><span>Territory workstream</span><span>Readiness</span><span>Status</span></div>
+          <div className="partner-head"><span>Territory workstream</span><span>Capability readiness</span><span>Status</span></div>
           {filtered.map((item) => (
             <button key={item.name} className={current.name === item.name ? "partner-row selected" : "partner-row"} onClick={() => setSelectedPartner(item.name)}>
               <span><i><PackageCheck /></i><span><strong>{item.name}</strong><small>{item.region} · {item.capability}</small></span></span>
@@ -644,11 +666,11 @@ function PartnerView() {
           {!filtered.length && <div className="empty-state"><Network /><strong>No matching workstreams</strong><span>Change one of the partner filters.</span></div>}
         </article>
         <aside className="panel partner-detail">
-          <p className="eyebrow">Workstream</p><h2>{current.name}</h2>
-          <div className="readiness-gauge"><span style={{ "--score": current.readiness } as CSSProperties}><b>{current.readiness}%</b><small>ready</small></span></div>
-          <div className="gap-card"><span>Primary gap</span><strong>{current.gap}</strong><small>Close this before opportunity conversion reaches procurement.</small></div>
-          <div className="partner-checklist"><h3>Readiness gates</h3><span className="done"><CheckCircle2 /> Named territory lead</span><span className={current.readiness > 70 ? "done" : ""}><CheckCircle2 /> Technical capability verified</span><span className={current.readiness > 80 ? "done" : ""}><CheckCircle2 /> Stock and logistics plan</span><span><CheckCircle2 /> Joint pursuit plan approved</span></div>
-          <a href="https://www.victaulic.com/where-to-buy/" target="_blank" rel="noreferrer">Check official distributor coverage <ArrowUpRight /></a>
+          <p className="eyebrow">Capability workstream</p><h2>{current.name}</h2>
+          <div className="readiness-gauge"><span style={{ "--score": current.readiness } as CSSProperties}><b>{current.readiness}%</b><small>readiness</small></span></div>
+          <div className="gap-card"><span>Primary dependency</span><strong>{current.gap}</strong><small>Resolve before the opportunity advances into procurement.</small></div>
+          <div className="partner-checklist"><h3>Readiness criteria</h3><span className="done"><CheckCircle2 /> Territory lead appointed</span><span className={current.readiness > 70 ? "done" : ""}><CheckCircle2 /> Technical capability validated</span><span className={current.readiness > 80 ? "done" : ""}><CheckCircle2 /> Stock and logistics plan confirmed</span><span><CheckCircle2 /> Joint pursuit plan approved</span></div>
+          <a href="https://www.victaulic.com/where-to-buy/" target="_blank" rel="noreferrer">Review official distributor coverage <ArrowUpRight /></a>
         </aside>
       </section>
     </div>
